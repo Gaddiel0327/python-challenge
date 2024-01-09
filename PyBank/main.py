@@ -6,13 +6,11 @@ import os
 import csv
 
 csvpath = os.path.join('Resources', 'budget_data.csv')
+output_path = os.path.join('Analysis', 'analysis_text.txt')
 
-# Setting to 0 total months, total profit 
+# Setting the variables 
 total_months = 0
 total_pnl = 0
-
-
-# Setting to find the average change
 changes = []
 
 
@@ -44,19 +42,21 @@ with open(csvpath, 'r') as csvfile:
 average_change = sum(changes) / len(changes)
 
 
-#Making sure Greatest Increase and Decrease resets to zero when it it loops
+# Making sure Greatest Increase and Decrease resets to zero when it it loops
 greatest_increase = 0
 greatest_decrease = 0
+
+# Making to sure to update month while looping through the data
 greatest_increase_date = ""
 greatest_decrease_date = ""
 
 with open(csvpath, 'r') as file:
     csv_reader = csv.reader(file)
    
-    #Skipping the first row for the header
+    # Skipping the first row for the header
     header = next(csv_reader)
 
-    #Looping to find the greeatest increase and decrease 
+    # Looping to find the greeatest increase and decrease 
     for row in csv_reader:
         profit_loss = int(row[1])
         
@@ -74,10 +74,20 @@ with open(csvpath, 'r') as file:
         previous_pnl = profit_loss
 
 
+with open(output_path, 'w') as output_file:
+    output_file.write("Financial Analysis\n")
+    output_file.write('----------------------------') 
+    output_file.write("Total Months: " + str(total_months) + "\n")
+    output_file.write("Net Profit/Losses: $" + str(total_pnl) + "\n")
+    output_file.write("Average Change: $" + str(average_change) + "\n")
+    output_file.write("Greatest Increase in Profits: " + greatest_increase_date + " ($" + str(greatest_increase) + ")\n")
+    output_file.write("Greatest Decrease in Profits: " + greatest_decrease_date + " ($" + str(greatest_decrease) + ")\n")
 
-
+# Printing the results to the terminal
+print('Financial Analysis')
+print('----------------------------')   
 print("Total Months:", total_months)
-print(f"Net Profit/Losses:, ${total_pnl}")
-print(f"Average Change:, ${average_change}")
-print(f"Greatest Increase in Profits: {greatest_increase_date} (${greatest_increase})")
-print(f"Greatest Decrease in Profits: {greatest_decrease_date} (${greatest_decrease})")
+print("Net Profit/Losses: $" + str(total_pnl))
+print("Average Change: $" + str(average_change))
+print("Greatest Increase in Profits: " + greatest_increase_date + " ($" + str(greatest_increase) + ")")
+print("Greatest Decrease in Profits: " + greatest_decrease_date + " ($" + str(greatest_decrease) + ")")
