@@ -76,7 +76,7 @@ with open(csvpath, 'r') as file:
 
 with open(output_path, 'w') as output_file:
     output_file.write("Financial Analysis\n")
-    output_file.write('----------------------------') 
+    output_file.write('----------------------------\n') 
     output_file.write("Total Months: " + str(total_months) + "\n")
     output_file.write("Net Profit/Losses: $" + str(total_pnl) + "\n")
     output_file.write("Average Change: $" + str(average_change) + "\n")
